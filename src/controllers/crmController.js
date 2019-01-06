@@ -12,4 +12,42 @@ export const addNewContact = (req, res) => {
         }
         res.json(contact);
     });
-}
+};
+
+export const getContacts = (req, res) => {
+    Contact.find({}, (err, contact) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(contact);
+    });
+};
+
+export const getContactWithId = (req, res) => {
+    Contact.findById(req.params.contactId, (err, contact) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(contact);
+    });
+};
+
+export const updateContact = (req, res) => {
+    Contact.findOneAndUpdate({ _id: req.params.contactId}, res.body, { new: true}, (err, contact) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(contact);
+    });
+};
+
+export const deleteContact = (req, res) => {
+    Contact.deleteOne({ _id: req.params.contactId }, (err, contact) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted contact' });
+    });
+};
+
+
